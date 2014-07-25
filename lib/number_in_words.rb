@@ -14,37 +14,50 @@ def number_in_words(num)
   i_scale = 0
 
   while !num.zero?
-
+    f = (num / 1000)
     hundreds_word_array = []
     num, num_sub = num.divmod(1000)
+    puts num
+    puts '----'
+    puts num_sub
+    puts '---------------'
     if num_sub >= 100 && num_sub <= 999
       hundreds, num_sub = num_sub.divmod(100)
       hundreds_word_array.push(num_word_list[hundreds])
       hundreds_word_array.push(num_word_list[100])
+      if !hundreds.zero? && num_sub.zero?
+        hundreds_word_array.push(scale[i_scale])
+      end
     end
-    if num_sub >= 20
+    if num_sub >= 20 && num_sub <= 99
       tens, num_sub  = num_sub.divmod(10)
       hundreds_word_array.push(num_word_list[tens * 10])
+      if !tens.zero? && num_sub.zero?
+        hundreds_word_array.push(scale[i_scale])
+      end
     end
     hundreds_word_array.push(num_word_list[num_sub])
-    if !num_sub.zero? && (num * 1000)
+    if !num_sub.zero?
       hundreds_word_array.push(scale[i_scale])
     end
     num_sub = 0
-    i_scale = i_scale.succ
+    i_scale = i_scale.next
     word_array.unshift(hundreds_word_array.join(' ').strip)
   end
   word_array.join(' ').strip.sub(/( )+/, ' ')
 end
 
+# puts number_in_words(256)
+# puts number_in_words(600)
+# puts number_in_words(1250)
+# puts number_in_words(1000)
+# puts number_in_words(10000)
+# puts number_in_words(111111)
+# puts number_in_words(100000)
+puts number_in_words(90000000)
 
+# irb(main):003:0> 100000.divmod(1000)
+# => [100, 0]
 
-puts number_in_words(27)
-puts number_in_words(256)
-puts number_in_words(600)
-puts number_in_words(1250)
-puts number_in_words(1000)
-puts number_in_words(10000)
-puts number_in_words(111111)
-puts number_in_words(100000)
-
+# irb(main):004:0> 100.divmod(1000)
+# => [0, 100]
