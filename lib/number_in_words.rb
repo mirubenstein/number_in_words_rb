@@ -13,23 +13,17 @@ def number_in_words(num)
       hundreds, num_sub = num_sub.divmod(100)
       hundreds_word_array.push(num_word_list[hundreds])
       hundreds_word_array.push(num_word_list[100])
-      if !hundreds.zero? && num_sub.zero?
-        hundreds_word_array.push(scale[i_scale])
-      end
+      !hundreds.zero? && num_sub.zero? ? hundreds_word_array.push(scale[i_scale]) : nil
     end
 
     if num_sub >= 20 && num_sub <= 99
       tens, num_sub  = num_sub.divmod(10)
       hundreds_word_array.push(num_word_list[tens * 10])
-      if !tens.zero? && num_sub.zero?
-        hundreds_word_array.push(scale[i_scale])
-      end
+      !tens.zero? && num_sub.zero? ? hundreds_word_array.push(scale[i_scale]) : nil
     end
 
     hundreds_word_array.push(num_word_list[num_sub])
-    if !num_sub.zero?
-      hundreds_word_array.push(scale[i_scale])
-    end
+    !num_sub.zero? ? hundreds_word_array.push(scale[i_scale]) : nil
 
     num_sub = 0
     i_scale = i_scale.next
